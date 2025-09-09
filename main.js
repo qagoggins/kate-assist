@@ -20,6 +20,17 @@ const client = new TelegramClient(stringSession, apiId, apiHash, {
   connectionRetries: 5,
 });
 
+const http = require("http");
+
+const port = process.env.PORT || 8080;
+
+http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("OK");
+}).listen(port, () => {
+  console.log(`Healthcheck server running on port ${port}`);
+});
+
 
 // Helper functions
 async function sendReminder(chatIdStr, text, reminderId) {
