@@ -1,0 +1,20 @@
+{
+  "name": "kate-assist",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.2",
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.2.2",
+    "input": "^1.0.1",
+    "node-cron": "^4.2.1",
+    "telegram": "^2.26.22"
+  }
+}
