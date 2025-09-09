@@ -33,25 +33,25 @@ http.createServer((req, res) => {
 
 function getReminderMessage(reminderText, reminderId) {
   const withDone = [
-    `✨ *Hey, just a gentle nudge:* **${reminderText}**\n\nReply /done ${reminderId} to archive this reminder.`,
-    `🕰️ *Your task is waiting:* **${reminderText}**\nMark it complete with: /done ${reminderId}`,
-    `💡 *Quick reminder from me:* **${reminderText}**\nFinished? Reply: /done ${reminderId}`,
+    `✨ Hey, just a gentle nudge: **${reminderText}**\n\nReply /done ${reminderId} to archive this reminder.`,
+    `🕰️ Your task is waiting: **${reminderText}**\nMark it complete with: /done ${reminderId}`,
+    `💡 Quick reminder from me: **${reminderText}**\nFinished? Reply: /done ${reminderId}`,
     `🌸 Don’t forget: **${reminderText}**\nClose it when you’re done: /done ${reminderId}`,
-    `📝 *Task for you:* **${reminderText}**\nReply /done ${reminderId} once completed.`,
-    `⏳ *Reminder:* **${reminderText}**\nClear it when you finish: /done ${reminderId}`,
+    `📝 Task for you: **${reminderText}**\nReply /done ${reminderId} once completed.`,
+    `⏳ Reminder: **${reminderText}**\nClear it when you finish: /done ${reminderId}`,
     `🌿 Just checking in—**${reminderText}**\nDone? Mark it with: /done ${reminderId}`,
-    `💬 *Here’s what’s next:* **${reminderText}**\nArchive it with /done ${reminderId}`,
+    `💬 Here’s what’s next: **${reminderText}**\nArchive it with /done ${reminderId}`,
     `📌 Remember to: **${reminderText}**\nReply with /done ${reminderId} once it’s finished.`,
     `🌼 Friendly ping: **${reminderText}**\nWhen completed, let me know with /done ${reminderId}`,
   ];
 
   const withoutDone = [
-    `✨ *Just popping in to remind you:* **${reminderText}**`,
-    `🌿 *Hey, don’t let this slip away today:* **${reminderText}**`,
-    `💌 *Gentle ping from me:* **${reminderText}**`,
-    `🕊️ *I kept this on your radar for a reason:* **${reminderText}**`,
+    `✨ Just popping in to remind you: **${reminderText}**`,
+    `🌿 Hey, don’t let this slip away today: **${reminderText}**`,
+    `💌 Gentle ping from me: **${reminderText}**`,
+    `🕊️ I kept this on your radar for a reason: **${reminderText}**`,
     `🎀 Don’t forget yourself in the middle of everything… but also, **${reminderText}**`,
-    `📖 *Writing this down again for you:* **${reminderText}**`,
+    `📖 Writing this down again for you: **${reminderText}**`,
     `☀️ A little sunshine note: **${reminderText}**`,
     `💫 I thought you’d want this in front of you again: **${reminderText}**`,
     `🕰️ This one feels important right now: **${reminderText}**`,
