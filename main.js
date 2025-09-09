@@ -15,7 +15,7 @@ const supabase = createClient(
 // Telegram client setup
 const apiId = parseInt(process.env.TELEGRAM_API_ID);
 const apiHash = process.env.TELEGRAM_API_HASH;
-const stringSession = new StringSession('');  // Store session after first login
+const stringSession = new StringSession(process.env.TG_SESSION);  // Store session after first login
 const client = new TelegramClient(stringSession, apiId, apiHash, {
   connectionRetries: 5,
 });

@@ -14,3 +14,5 @@
 // CREATE INDEX idx_reminders_user_id ON reminders(user_id);
 // CREATE INDEX idx_reminders_next_due ON reminders(next_due);
 // CREATE INDEX idx_reminders_active ON reminders(is_active, archived) WHERE is_active = TRUE AND archived = FALSE;
+
+//// reminder above
