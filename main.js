@@ -16,7 +16,7 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
-// Telegram client setup
+// Telegram client setupasd
 const apiId = parseInt(process.env.TELEGRAM_API_ID);
 const apiHash = process.env.TELEGRAM_API_HASH;
 const stringSession = new StringSession(process.env.TG_SESSION);  // Store session after first login
