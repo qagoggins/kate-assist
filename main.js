@@ -6,7 +6,11 @@ const cron = require('node-cron');
 const { parse, add, format, sub } = require('date-fns');
 const input = require('input');
 require("dotenv").config();
-// Supabase client
+
+const { fromZonedTime, toZonedTime } = require("date-fns-tz")
+
+const TIMEZONE = "Asia/Bishkek";
+
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_ANON_KEY
@@ -88,31 +92,39 @@ function parseInterval(intervalStr) {
 }
 
 function calculateNextDue(type, targetValue, currentTime = new Date()) {
-  if (type === 'date') {
-    const targetDate = parse(targetValue, 'yyyy-MM-dd HH:mm', currentTime);
-    return sub(targetDate, { minutes: 30 });
-  } else if (type === 'interval') {
+  if (type === "date") {
+    // user types Bishkek local time
+    const localDate = parse(targetValue, "yyyy-MM-dd HH:mm", currentTime);
+    // convert to UTC before saving
+    const targetDateUtc = fromZonedTime(localDate, TIMEZONE);
+
+    // remind 30 minutes earlier
+    // return sub(targetDateUtc, { minutes: 30 });
+    return targetDateUtc;
+  } else if (type === "interval") {
     const interval = parseInterval(targetValue);
-    return add(currentTime, interval);
+    return add(currentTime, interval); // already UTC
   }
-  throw new Error('Invalid type');
+  throw new Error("Invalid type");
 }
 
 async function createReminder(userId, chatId, text, type, targetValue) {
-  const now = new Date();
+  const now = new Date(); // UTC
   const nextDue = calculateNextDue(type, targetValue, now);
+
   const { data, error } = await supabase
-    .from('reminders')
+    .from("reminders")
     .insert({
       user_id: userId,
       chat_id: chatId,
       text,
       type,
       target_value: targetValue,
-      next_due: nextDue.toISOString()
+      next_due: nextDue.toISOString(), // always UTC
     })
-    .select('id')
+    .select("id")
     .single();
+
   if (error) throw error;
   return data.id;
 }
@@ -251,16 +263,19 @@ async function handleMessage(event) {
         });
         return;
       }
-
+      
       let response = "Active Reminders:\n";
-      reminders.forEach((r) => {
-        response += `- ID: ${r.id}, Text: ${r.text}, Next Due: ${format(
-          new Date(r.next_due),
-          "yyyy-MM-dd HH:mm"
-        )}\n`;
-      });
+reminders.forEach((r) => {
+  const localTime = toZonedTime(new Date(r.next_due), TIMEZONE);
+  response += `- ID: \`${r.id}\` 
+Text: ${r.text} 
+Next Due: ${format(
+    localTime,
+    "yyyy-MM-dd HH:mm"
+  )} (Bishkek)\n`;
+});
 
-      await client.sendMessage(BigInt(chatId), { message: response });
+      await client.sendMessage(BigInt(chatId), { message: response, parseMode: "markdown" });
     } catch (err) {
       await client.sendMessage(BigInt(chatId), {
         message: `Error: ${err.message}`,
