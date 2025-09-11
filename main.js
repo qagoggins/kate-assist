@@ -140,6 +140,24 @@ async function listActiveReminders(userId) {
   if (error) throw error;
   return data;
 }
+async function getRandomQuote() {
+  try {
+    const res = await fetch(`${process.env.SUPABASE_URL}/functions/v1/quotes`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${process.env.SUPABASE_ANON_KEY}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error("Quote fetch failed:", err);
+    return null;
+  }
+}
+
 
 async function archiveReminder(reminderId, userId) {
   const { data: reminder, error: fetchError } = await supabase
@@ -301,7 +319,29 @@ Next Due: ${format(
         message: `Error: ${err.message}`,
       });
     }
+  } else if (text.startsWith("/quote")) {
+  try {
+    const quote = await getRandomQuote();
+    if (!quote) {
+      await client.sendMessage(BigInt(chatId), { message: "Sorry, I couldn’t fetch a quote right now 🌸" });
+      return;
+    }
+
+    const formatted = `💭 *${quote.text}*\n` + 
+  (quote.author ? `\n╰ _${quote.author}_` : "");
+
+
+    await client.sendMessage(BigInt(chatId), {
+      message: formatted,
+      parseMode: "markdown",
+    });
+  } catch (err) {
+    await client.sendMessage(BigInt(chatId), {
+      message: `Error fetching quote: ${err.message}`,
+    });
   }
+}
+
 }
 
 
