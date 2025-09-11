@@ -327,8 +327,8 @@ Next Due: ${format(
       return;
     }
 
-    const formatted = `💭 *${quote.text}*\n` + 
-  (quote.author ? `\n╰ _${quote.author}_` : "");
+    const formatted = `💭 "${quote.text}"\n` + 
+  (quote.author ? `\n╰ ${quote.author}` : "");
 
 
     await client.sendMessage(BigInt(chatId), {
