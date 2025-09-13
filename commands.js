@@ -94,38 +94,17 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
       await sendMessage(chatId, `Error: ${err.message}`);
     }
   } else if (text.startsWith('/done ')) {
-    let reminderId = text.split(' ')[1]?.trim();
+    const reminderId = text.split(' ')[1];
     if (!reminderId) {
-      // Default to most recent if no ID provided
-      try {
-        const reminders = await listActiveReminders(senderId);
-        if (reminders.length === 0) {
-          await sendMessage(chatId, 'No active reminders to done. Create one with /remind!');
-          return;
-        }
-        reminderId = reminders[0].id.toString(); // Most recent (due soonest, from order)
-        await sendMessage(chatId, `No ID provided—archiving your most recent reminder (ID: ${reminderId}).`);
-      } catch (err) {
-        await sendMessage(chatId, `Error fetching recent reminder: ${err.message}. Try /list first.`);
-        return;
-      }
-    }
-
-    // Validate: must be numeric
-    if (!/^\d+$/.test(reminderId)) {
-      await sendMessage(chatId, 'Invalid ID: Must be a number from /list. Usage: /done <reminder_id>');
+      await sendMessage(chatId, 'Usage: /done <reminder_id>');
       return;
     }
 
     try {
       await archiveReminder(reminderId, senderId);
-      await sendMessage(chatId, `Reminder ${reminderId} archived! 🎉`);
+      await sendMessage(chatId, 'Reminder archived!');
     } catch (err) {
-      if (err.message.includes('not found')) {
-        await sendMessage(chatId, `Reminder ${reminderId} not found or already archived. Run /list to check active ones.`);
-      } else {
-        await sendMessage(chatId, `Error: ${err.message}. Double-check the ID from /list.`);
-      }
+      await sendMessage(chatId, `Error: ${err.message}`);
     }
   } else if (text.startsWith('/quote')) {
     try {
