@@ -2,6 +2,7 @@ const cron = require('node-cron');
 const { getDueReminders, updateNextDue, parseInterval } = require('./db');
 const { sendMessage } = require('./telegram');
 const { getReminderMessage } = require('./utils');
+const { supabase } = require('./config');
 
 async function checkDueReminders() {
   const dueReminders = await getDueReminders();
