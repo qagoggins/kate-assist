@@ -3,13 +3,18 @@ const { startScheduler } = require('./scheduler');
 const { handleMessage } = require('./commands');
 const { startServer } = require('./server');
 const { NewMessage } = require('telegram/events');
-const { client } = require("./config")
-
+const { client } = require("./config");
 
 async function main() {
   console.log('Starting Telegram Reminder Userbot...');
   await startTelegramClient();
-  client.addEventHandler(handleMessage);
+  
+  // Wrap handleMessage to properly receive the NewMessageEvent
+  client.addEventHandler((event) => {
+    console.log('Event received:', event.message?.message || 'No message text'); // Debug: Confirm events fire
+    handleMessage(event);
+  }, new NewMessage({}));
+  
   startScheduler();
   startServer();
 
