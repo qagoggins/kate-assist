@@ -109,6 +109,8 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
   } else if (text.startsWith('/quote')) {
     try {
       const quote = await getRandomQuote();
+      console.log(quote);
+      
       if (!quote) {
         await sendMessage(chatId, 'Sorry, I couldn’t fetch a quote right now 🌸');
         return;
