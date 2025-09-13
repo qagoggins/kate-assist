@@ -4,8 +4,8 @@ const input = require("input"); // npm i input
 const dotenv = require("dotenv")
 dotenv.config()
 
-// const apiId = 
-// const apiHash = 
+const apiId = 21653310
+const apiHash = "4e04c81d2acd997f5d1078d57e33918d"
 
 // empty session on first run
 const stringSession = new StringSession(""); 
