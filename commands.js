@@ -112,7 +112,7 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
 
 
       
-      if (!quote) {
+      if (!response) {
         await sendMessage(chatId, 'Sorry, I couldn’t fetch a quote right now 🌸');
         return;
       }
