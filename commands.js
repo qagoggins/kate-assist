@@ -109,7 +109,8 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
   } else if (text.startsWith('/quote')) {
     try {
       const response = await getRandomQuote();
-
+      console.log(response.text);
+      
 
       
       if (!response) {
