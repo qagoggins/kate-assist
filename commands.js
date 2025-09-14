@@ -89,7 +89,7 @@ Text: ${r.text}
 Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
       });
 
-      await sendMessage(chatId, { message: response, parseMode: 'markdown' });
+      await sendMessage(chatId, response, { parseMode: 'markdown' });
     } catch (err) {
       await sendMessage(chatId, `Error: ${err.message}`);
     }
