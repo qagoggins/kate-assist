@@ -108,8 +108,11 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
     }
   } else if (text.startsWith('/quote')) {
     try {
-      const quote = await getRandomQuote();
+      const response = await getRandomQuote();
+      const quote = await JSON.stringify(response, null, 2)
       console.log(quote);
+      console.log(quote.text);
+      
       
       if (!quote) {
         await sendMessage(chatId, 'Sorry, I couldn’t fetch a quote right now 🌸');
