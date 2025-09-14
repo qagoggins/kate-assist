@@ -109,11 +109,6 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
   } else if (text.startsWith('/quote')) {
     try {
       const response = await getRandomQuote();
-      const quote = await JSON.stringify(response, null, 2)
-      console.log("QUOTE OBJECT:", response); // ✅ pass as separate arg
-console.log("QUOTE TEXT:", response.text); // ✅ should not be undefined if property exists
-console.log("TYPE OF RES:", typeof response);
-console.log("KEYS:", Object.keys(response));
 
 
       
@@ -122,7 +117,7 @@ console.log("KEYS:", Object.keys(response));
         return;
       }
 
-      const formatted = `💭 "${quote.text}"\n` + (quote.author ? `\n╰ ${quote.author}` : '');
+      const formatted = `💭 "${response.text}"\n` + (response.author ? `\n╰ ${response.author}` : '');
       await sendMessage(chatId, { message: formatted, parseMode: 'markdown' });
     } catch (err) {
       await sendMessage(chatId, `Error fetching quote: ${err.message}`);
