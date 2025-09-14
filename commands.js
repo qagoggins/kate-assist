@@ -110,12 +110,11 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
     try {
       const response = await getRandomQuote();
       const quote = await JSON.stringify(response, null, 2)
-      console.log("QUOTE OBJECT: "+quote);      
-      console.log("QUOTE TEXT: "+quote.text);
-      console.log("TYPE OF RES: "+typeof response);
-console.log(Object.keys("TRANSFORMATED OBJECT: "+response));
-console.log(Object.keys("TRANSFORMATED OBJECT: "+response.text));
-console.log("RES OBJ: "+response);
+      console.log("QUOTE OBJECT:", response); // ✅ pass as separate arg
+console.log("QUOTE TEXT:", response.text); // ✅ should not be undefined if property exists
+console.log("TYPE OF RES:", typeof response);
+console.log("KEYS:", Object.keys(response));
+
 
       
       if (!quote) {
