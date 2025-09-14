@@ -119,7 +119,8 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
       }
 
       const formatted = `💭 "${response.text}"\n` + (response.author ? `\n╰ ${response.author}` : '');
-      await sendMessage(chatId, { message: formatted, parseMode: 'markdown' });
+      // await sendMessage(chatId, { message: formatted, parseMode: 'markdown' });
+      await sendMessage(chatId, formatted, { parse_mode: 'Markdown' });
     } catch (err) {
       await sendMessage(chatId, `Error fetching quote: ${err.message}`);
     }
