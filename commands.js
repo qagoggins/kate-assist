@@ -110,9 +110,13 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
     try {
       const response = await getRandomQuote();
       const quote = await JSON.stringify(response, null, 2)
-      console.log(quote);
-      console.log(quote[0].text);
-      
+      console.log("QUOTE OBJECT: "+quote);      
+      console.log("QUOTE TEXT: "+quote.text);
+      console.log("TYPE OF RES: "+typeof response);
+console.log(Object.keys("TRANSFORMATED OBJECT: "+response));
+console.log(Object.keys("TRANSFORMATED OBJECT: "+response.text));
+console.log("RES OBJ: "+response);
+
       
       if (!quote) {
         await sendMessage(chatId, 'Sorry, I couldn’t fetch a quote right now 🌸');
