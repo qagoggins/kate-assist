@@ -111,7 +111,7 @@ Next Due: ${format(localTime, 'yyyy-MM-dd HH:mm')} (Bishkek)\n`;
       const response = await getRandomQuote();
       const quote = await JSON.stringify(response, null, 2)
       console.log(quote);
-      console.log(quote.text);
+      console.log(quote[0].text);
       
       
       if (!quote) {
